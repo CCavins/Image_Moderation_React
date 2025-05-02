@@ -225,11 +225,3 @@ npm run dev
 3. Commit your changes
 4. Push to the branch
 5. Create a Pull Request
-
-## License
-
-[Your chosen license]
-
-## Support
-
-For support, please [create an issue](your-issues-url) in the repository. 
