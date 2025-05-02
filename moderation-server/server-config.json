@@ -1,0 +1,9 @@
+{
+  "useJsonMode": true,
+  "autoAdd": true,
+  "sortOrder": "newest",
+  "jsonImages": "./Images",
+  "new": "./New Images",
+  "approved": "./Approved Images",
+  "denied": "./Denied Images"
+}
