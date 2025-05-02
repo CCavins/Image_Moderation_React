@@ -3,12 +3,15 @@ import ViewerModal from './ViewerModal';
 
 const BACKEND_URL = 'http://localhost:3000'; // Match your backend host/port
 
-const ImageGrid = ({ images, onApprove, onDeny, viewMode }) => {
+const ImageGrid = ({ images, onImageClick, onApprove, onDeny, viewMode }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageErrors, setImageErrors] = useState({});
 
   const handleImageClick = (image) => {
-    setSelectedImage(image);
+    // Only allow viewer for new images
+    if (image.status === 'new') {
+      onImageClick(image);
+    }
   };
 
   const handleCloseViewer = () => {

@@ -151,27 +151,19 @@ const App = () => {
       // Move the file and update metadata
       await moveImage(image.filename, 'approved');
       
-      // Refresh images while maintaining current view mode
-      const data = await fetchImages(viewMode);
-      const sortedImages = [...data].sort((a, b) => {
-        const timeA = a.timestamp || 0;
-        const timeB = b.timestamp || 0;
-        return sortOrder === 'newest' ? timeB - timeA : timeA - timeB;
-      });
-      setImages(sortedImages);
+      // Get the current list of images based on view mode
+      const currentImages = await fetchImages(viewMode);
+      setImages(currentImages);
       
-      // If in viewer, find next image or close
+      // If in viewer, find next new image
       if (showViewer) {
-        const nextImage = sortedImages.find(img => img.filename !== image.filename);
-        if (nextImage) {
-          setTimeout(() => {
-            setSelectedImage(nextImage);
-          }, 300);
+        const newImages = await fetchImages('new');
+        const nextNewImage = newImages.find(img => img.filename !== image.filename);
+        if (nextNewImage) {
+          setSelectedImage(nextNewImage);
         } else {
-          setTimeout(() => {
-            setSelectedImage(null);
-            setShowViewer(false);
-          }, 300);
+          setShowViewer(false);
+          setSelectedImage(null);
         }
       }
       
@@ -189,27 +181,19 @@ const App = () => {
       // Move the file and update metadata
       await moveImage(image.filename, 'denied');
       
-      // Refresh images while maintaining current view mode
-      const data = await fetchImages(viewMode);
-      const sortedImages = [...data].sort((a, b) => {
-        const timeA = a.timestamp || 0;
-        const timeB = b.timestamp || 0;
-        return sortOrder === 'newest' ? timeB - timeA : timeA - timeB;
-      });
-      setImages(sortedImages);
+      // Get the current list of images based on view mode
+      const currentImages = await fetchImages(viewMode);
+      setImages(currentImages);
       
-      // If in viewer, find next image or close
+      // If in viewer, find next new image
       if (showViewer) {
-        const nextImage = sortedImages.find(img => img.filename !== image.filename);
-        if (nextImage) {
-          setTimeout(() => {
-            setSelectedImage(nextImage);
-          }, 300);
+        const newImages = await fetchImages('new');
+        const nextNewImage = newImages.find(img => img.filename !== image.filename);
+        if (nextNewImage) {
+          setSelectedImage(nextNewImage);
         } else {
-          setTimeout(() => {
-            setSelectedImage(null);
-            setShowViewer(false);
-          }, 300);
+          setShowViewer(false);
+          setSelectedImage(null);
         }
       }
       
@@ -301,8 +285,8 @@ const App = () => {
               setSelectedImage(null);
               setShowViewer(false);
             }}
-            onApprove={() => handleApprove(selectedImage)}
-            onDeny={() => handleDeny(selectedImage)}
+            onApprove={handleApprove}
+            onDeny={handleDeny}
             newImageCount={newImageCount}
           />
         )}

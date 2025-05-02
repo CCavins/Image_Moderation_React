@@ -589,11 +589,25 @@ body, html, #root {
   max-height: 100%;
   object-fit: contain;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: all 0.3s ease;
+  transform: translateX(0) scale(0.95);
 }
 
 .viewer-image.fade-in {
   opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+.viewer-image.transitioning {
+  opacity: 0;
+}
+
+.viewer-image.left {
+  transform: translateX(-100%) scale(0.95);
+}
+
+.viewer-image.right {
+  transform: translateX(100%) scale(0.95);
 }
 
 .loading-spinner {
@@ -762,4 +776,18 @@ body, html, #root {
 .confirm-btn:hover {
   opacity: 0.9;
   transform: translateY(-1px);
+}
+
+.keyboard-shortcuts {
+  display: flex;
+  gap: 1rem;
+  margin-left: 1rem;
+}
+
+.shortcut {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
 }
